@@ -6,4 +6,4 @@ def hanoi(n, start, cel, pomocniczy):
         print(f"Przenieś dysk {n} z {start} do {cel}")
         hanoi(n - 1, pomocniczy, cel, start)
 
-hanoi(3, 'A', 'C', 'B')
+hanoi(3, "A", "C", "B")
