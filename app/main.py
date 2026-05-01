@@ -3,13 +3,13 @@ stan = {
     "B": [],
     "C": []
 }
-def hanoi(n, start, cel, pomocniczy):
+def hanoi(n, start, cel, pomocniczy, stan):
     if n == 1:
-        print(f"Przenieś dysk 1 z {start} do {cel}")
+        wykonaj_ruch(stan, start, cel)
     else:
-        hanoi(n - 1, start, pomocniczy, cel)
-        print(f"Przenieś dysk {n} z {start} do {cel}")
-        hanoi(n - 1, pomocniczy, cel, start)
+        hanoi(n - 1, start, pomocniczy, cel, stan)
+        wykonaj_ruch(stan, start, cel)
+        hanoi(n - 1, pomocniczy, cel, start, stan)
 
 def legalne_ruch(stan,start,cel):
     if len(stan[start]) == 0:
@@ -18,5 +18,14 @@ def legalne_ruch(stan,start,cel):
         return True
     return stan[start][-1] < stan[cel][-1]
 
-hanoi(3, "A", "C", "B")
-print(stan)
+def wykonaj_ruch(stan,start,cel):
+    if legalne_ruch(stan,start,cel):
+        dysk = stan[start].pop()
+        stan[cel].append(dysk)
+    else:
+        print("Nielegalny ruch")
+
+if __name__ == "__main__":
+    print(f"Stan początkowy: {stan}")
+    hanoi(len(stan["A"]), "A", "C", "B", stan)
+    print(f"Stan końcowy: {stan}")
