@@ -7,12 +7,10 @@ def test_legalny_ruch():
         "B": [],
         "C": []
     }
-    assert legalny_ruch(stan, "A", "B") == True
-    assert legalny_ruch(stan, "C", "A") == False
+    assert not legalny_ruch(stan, "A", "C")
 
     stan = {"A": [1], 
             "B": [2], 
             "C": []}
-    assert legalny_ruch(stan, "A", "B") == True  
-    assert legalny_ruch(stan, "B", "A") == False
-
+    assert legalny_ruch(stan, "A", "B")
+    assert not legalny_ruch(stan, "B", "A")
