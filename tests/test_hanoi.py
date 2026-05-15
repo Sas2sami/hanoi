@@ -1,4 +1,4 @@
-from app.main import hanoi, legalne_ruchy
+from app.main import hanoi, legalne_ruchy, bfs, dfs
 
 
 def test_legalne_ruchy():
@@ -33,3 +33,20 @@ def test_hanoi():
         "C": [3, 2, 1]
         }
 
+def test_bfs():
+    start = ((3, 2, 1), (), ())
+    goal = ((), (), (3, 2, 1))
+    path, visited_count, duration = bfs(start, goal)
+    assert len(path) == 7
+    assert path[-1] == goal
+    assert visited_count > 0
+    assert duration >= 0
+
+def test_dfs():
+    start = ((3, 2, 1), (), ())
+    goal = ((), (), (3, 2, 1))
+    path, visited_count, duration = dfs(start, goal)
+    assert path[-1] == goal
+    assert len(path) >= 7
+    assert visited_count > 0
+    assert duration >= 0

@@ -17,15 +17,15 @@ def hanoi(n, start, cel, pomocniczy, stan):
         wykonaj_ruch(stan, start, cel)
         hanoi(n - 1, pomocniczy, cel, start, stan)
 
-def legalne_ruchy(stan,start,cel):
+def legalne_ruchy(stan, start, cel):
     if len(stan[start]) == 0:
         return False
     if len(stan[cel]) == 0:
         return True
     return stan[start][-1] < stan[cel][-1]
 
-def wykonaj_ruch(stan,start,cel):
-    if legalne_ruchy(stan,start,cel):
+def wykonaj_ruch(stan, start, cel):
+    if legalne_ruchy(stan, start, cel):
         dysk = stan[start].pop()
         stan[cel].append(dysk)
     else:
@@ -48,7 +48,7 @@ def get_moves(state):
                 moves.append(tuple(tuple(rod) for rod in new_state))
     return moves
 
-def bfs(start, goal):
+def bfs(start,  goal):
     start_time = time.perf_counter()
     queue = deque([(start, [])])
     visited = set()
@@ -95,7 +95,6 @@ def dfs(start, goal):
     
     duration = time.perf_counter() - start_time
     return None, visited_count, duration
-
 
 if __name__ == "__main__":
     path, visited_count, duration = bfs(start, goal)
