@@ -1,4 +1,4 @@
-from app.main import hanoi, legalne_ruchy, bfs, dfs
+from app.main import bfs, dfs, hanoi, legalne_ruchy
 
 
 def test_legalne_ruchy():
