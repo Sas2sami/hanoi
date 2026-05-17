@@ -58,8 +58,8 @@ def bfs(start,  goal):
         state, path = queue.popleft()
 
         if state == goal:
-            duration = time.perf_counter() - start_time
-            return path, visited_count, duration
+            czas = time.perf_counter() - start_time
+            return path, visited_count, czas
 
         if state in visited:
             continue
@@ -70,8 +70,8 @@ def bfs(start,  goal):
         for next_state in get_moves(state):
             queue.append((next_state, path + [next_state]))
 
-    duration = time.perf_counter() - start_time
-    return None, visited_count, duration
+    czas = time.perf_counter() - start_time
+    return None, visited_count, czas
 
 def dfs(start, goal):
     start_time = time.perf_counter()
@@ -82,8 +82,8 @@ def dfs(start, goal):
     while stack:
         state, path = stack.pop()
         if state == goal:
-            duration = time.perf_counter() - start_time
-            return path, visited_count, duration
+            czas = time.perf_counter() - start_time
+            return path, visited_count, czas
         
         if state in visited:
             continue
@@ -93,24 +93,65 @@ def dfs(start, goal):
         for next_state in get_moves(state):
             stack.append((next_state, path + [next_state]))
     
-    duration = time.perf_counter() - start_time
-    return None, visited_count, duration
+    czas = time.perf_counter() - start_time
+    return None, visited_count, czas
+
+def bfs_dwukierunkowe(start, goal):
+    start_time = time.perf_counter()
+    queue_start = deque([start])
+    queue_goal = deque([goal])
+    visited_start = {start}
+    visited_goal = {goal}
+    visited_count = 0
+
+    while queue_start and queue_goal:
+        state_start = queue_start.popleft()
+        visited_count += 1
+
+        if state_start in visited_goal:
+            czas = time.perf_counter() - start_time
+            return visited_count, czas
+
+        for next_state in get_moves(state_start):
+            if next_state not in visited_start:
+                visited_start.add(next_state)
+                queue_start.append(next_state)
+
+        state_goal = queue_goal.popleft()
+        visited_count += 1
+
+        if state_goal in visited_start:
+            czas = time.perf_counter() - start_time
+            return visited_count, czas
+
+        for next_state in get_moves(state_goal):
+            if next_state not in visited_goal:
+                visited_goal.add(next_state)
+                queue_goal.append(next_state)
+
+    czas = time.perf_counter() - start_time
+    return visited_count, czas
 
 if __name__ == "__main__":
-    path, visited_count, duration = bfs(start, goal)
+    path, visited_count, czas = bfs(start, goal)
     print("BFS")
     print("Liczba ruchów:", len(path))
     print("Liczba odwiedzonych stanów:", visited_count)
-    print("Czas działania:", f"{duration:.8f} s")
+    print("czas działania:", f"{czas:.8f} s")
     print("\nKolejno stany:")
     for step in path:
         print(step)
 
-    path, visited_count, duration = dfs(start, goal)
+    path, visited_count, czas = dfs(start, goal)
     print("\nDFS")
     print("Liczba ruchów:", len(path))
     print("Liczba odwiedzonych stanów:", visited_count)
-    print("Czas działania:", f"{duration:.8f} s")
+    print("czas działania:", f"{czas:.8f} s")
     print("\nKolejno stany:")
     for step in path:
         print(step)
+
+    visited_count, czas = bfs_dwukierunkowe(start, goal)
+    print("\nBFS dwukierunkowe")
+    print("Liczba odwiedzonych stanów:", visited_count)
+    print("czas działania:", f"{czas:.8f} s")
