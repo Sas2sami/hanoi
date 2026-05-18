@@ -30,7 +30,6 @@ Synchronizacja zależności:
 uv sync
 ```
 
-
 ## Uruchomienie
 
 ```shell
@@ -42,6 +41,7 @@ uv run hanoi
 ```shell
 uv run pytest
 ```
+
 ## Sprawdzenie jakości kodu
 
 ```shell
