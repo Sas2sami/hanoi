@@ -1,4 +1,4 @@
-from app.main import bfs, dfs, hanoi, legalne_ruchy
+from app.main import bfs, bfs_dwukierunkowe, dfs, hanoi, legalne_ruchy
 
 
 def test_legalne_ruchy():
@@ -48,5 +48,12 @@ def test_dfs():
     path, visited_count, duration = dfs(start, goal)
     assert path[-1] == goal
     assert len(path) >= 7
+    assert visited_count > 0
+    assert duration >= 0
+
+def test_bfs_dwukierunkowe():
+    start = ((3, 2, 1), (), ())
+    goal = ((), (), (3, 2, 1))
+    visited_count, duration = bfs_dwukierunkowe(start, goal)
     assert visited_count > 0
     assert duration >= 0

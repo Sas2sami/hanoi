@@ -48,7 +48,7 @@ def get_moves(state):
                 moves.append(tuple(tuple(rod) for rod in new_state))
     return moves
 
-def bfs(start,  goal):
+def bfs(start, goal):
     start_time = time.perf_counter()
     queue = deque([(start, [])])
     visited = set()
@@ -133,25 +133,28 @@ def bfs_dwukierunkowe(start, goal):
     return visited_count, czas
 
 if __name__ == "__main__":
+    n = len(start[0])
+    optimum = 2**n - 1
+
+    print("PORÓWNANIE ALGORYTMÓW")
+    print("Liczba krążków:", n)
+    print("Optymalna liczba ruchów:", optimum, "\n")
+
     path, visited_count, czas = bfs(start, goal)
     print("BFS")
     print("Liczba ruchów:", len(path))
     print("Liczba odwiedzonych stanów:", visited_count)
-    print("czas działania:", f"{czas:.8f} s")
-    print("\nKolejno stany:")
-    for step in path:
-        print(step)
+    print("Czas działania:", f"{czas:.8f} s")
 
     path, visited_count, czas = dfs(start, goal)
     print("\nDFS")
     print("Liczba ruchów:", len(path))
     print("Liczba odwiedzonych stanów:", visited_count)
-    print("czas działania:", f"{czas:.8f} s")
-    print("\nKolejno stany:")
-    for step in path:
-        print(step)
+    print("Czas działania:", f"{czas:.8f} s")
 
     visited_count, czas = bfs_dwukierunkowe(start, goal)
     print("\nBFS dwukierunkowe")
     print("Liczba odwiedzonych stanów:", visited_count)
-    print("czas działania:", f"{czas:.8f} s")
+    print("Czas działania:", f"{czas:.8f} s")
+
+
