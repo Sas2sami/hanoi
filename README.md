@@ -1,21 +1,80 @@
-# Python Template
+# Wieże Hanoi - porównanie algorytmów
 
-[![python](https://img.shields.io/badge/Python-3.14-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
-[![ruff](https://github.com/wnowicki/pytemp/workflows/Ruff/badge.svg)](https://github.com/wnowicki/pytemp/actions?query=branch%3Amain)
-[![pytest](https://github.com/wnowicki/pytemp/workflows/Pytest/badge.svg)](https://github.com/wnowicki/pytemp/actions?query=branch%3Amain)
-[![pylint](https://github.com/wnowicki/pytemp/workflows/Pylint/badge.svg)](https://github.com/wnowicki/pytemp/actions?query=branch%3Amain)
-[![markdown](https://github.com/wnowicki/pytemp/workflows/Markdown%20Lint/badge.svg)](https://github.com/wnowicki/pytemp/actions?query=branch%3Amain)
-[![License: GPLv3](https://img.shields.io/badge/License-MIT-blue.svg)](https://license.md/licenses/mit-license/)
+Projekt zaliczeniowy z przedmiotu Sztuczna inteligencja_Sz_2025/2026_L_I1_N.
 
-## Test
+Celem projektu jest porównanie metod przeszukiwania przestrzeni stanów na przykładzie problemu Wież Hanoi.
+
+W projekcie porównywane są trzy metody:
+
+- DFS / brute force
+- BFS
+- BFS dwukierunkowe
+
+Program sprawdza:
+
+- liczbę ruchów,
+- liczbę odwiedzonych stanów,
+- czas działania algorytmu.
+
+## Instalacja
+
+Jeśli `uv` nie jest zainstalowane, można je zainstalować poleceniem:
+
+```shell
+pip install uv
+```
+
+Synchronizacja zależności:
+
+```shell
+uv sync
+```
+
+
+## Uruchomienie
+
+```shell
+uv run hanoi
+```
+
+## Testy
 
 ```shell
 uv run pytest
 ```
+## Sprawdzenie jakości kodu
 
-## Security
+```shell
+uvx ruff check
+```
 
-If you discover any security-related issues, please email [email](mailto:email) instead of using the issue tracker.
+## Przykładowy wynik
 
----
-Copyright (c) [year] [fullname]
+Po uruchomieniu program pyta o liczbę krążków:
+
+```text
+Podaj liczbę krążków: 3
+```
+
+Następnie wypisuje porównanie algorytmów, np.:
+
+```text
+PORÓWNANIE ALGORYTMÓW
+Liczba krążków: 3
+Optymalna liczba ruchów: 7
+
+BFS
+Liczba ruchów: 7
+Liczba odwiedzonych stanów: 24
+Czas działania: 0.00012345 s
+
+DFS
+Liczba ruchów: 13
+Liczba odwiedzonych stanów: 13
+Czas działania: 0.00009876 s
+
+BFS dwukierunkowe
+Liczba ruchów: 7
+Liczba odwiedzonych stanów: ...
+Czas działania: ...
+```
