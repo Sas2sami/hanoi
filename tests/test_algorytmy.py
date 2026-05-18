@@ -1,5 +1,6 @@
 from app.algorytmy import bfs, bfs_dwukierunkowe, dfs
 
+
 def test_bfs():
     start = ((3, 2, 1), (), ())
     goal = ((), (), (3, 2, 1))
