@@ -1,13 +1,12 @@
 import time
 from collections import deque
 
-stan = {
-    "A": [3, 2, 1],
-    "B": [],
-    "C": []
-}
-start = ((3, 2, 1), (), ())
-goal = ((), (), (3, 2, 1))
+
+def stan(n):
+    krazki = tuple(range(n, 0, -1))
+    start = (krazki, (), ())
+    goal = ((), (), krazki)
+    return start, goal
 
 def hanoi(n, start, cel, pomocniczy, stan):
     if n == 1:
@@ -38,7 +37,7 @@ def get_moves(state):
     for i in range(n): 
         if not state[i]:
             continue
-        disk = state[i][-1] 
+        disk = state[i][-1]
         for j in range(n):
             if i == j:
                 continue
@@ -98,45 +97,49 @@ def dfs(start, goal):
 
 def bfs_dwukierunkowe(start, goal):
     start_time = time.perf_counter()
-    queue_start = deque([start])
-    queue_goal = deque([goal])
-    visited_start = {start}
-    visited_goal = {goal}
+    queue_start = deque([(start, 0)])
+    queue_goal = deque([(goal, 0)])
+
+    visited_start = {start: 0}
+    visited_goal = {goal: 0}    
     visited_count = 0
 
     while queue_start and queue_goal:
-        state_start = queue_start.popleft()
+        state_start, distance_start = queue_start.popleft()
         visited_count += 1
 
         if state_start in visited_goal:
+            liczba_ruchow = distance_start + visited_goal[state_start]
             czas = time.perf_counter() - start_time
-            return visited_count, czas
+            return visited_count, czas, liczba_ruchow
 
         for next_state in get_moves(state_start):
             if next_state not in visited_start:
-                visited_start.add(next_state)
-                queue_start.append(next_state)
+                visited_start[next_state]= distance_start + 1
+                queue_start.append((next_state, distance_start + 1))
 
-        state_goal = queue_goal.popleft()
+        state_goal, distance_goal = queue_goal.popleft()
         visited_count += 1
 
         if state_goal in visited_start:
+            liczba_ruchow = distance_start + visited_start[state_goal]
             czas = time.perf_counter() - start_time
-            return visited_count, czas
+            return visited_count, czas, liczba_ruchow
 
         for next_state in get_moves(state_goal):
             if next_state not in visited_goal:
-                visited_goal.add(next_state)
-                queue_goal.append(next_state)
+                visited_goal[next_state] = distance_goal + 1
+                queue_goal.append((next_state, distance_goal + 1))
 
     czas = time.perf_counter() - start_time
-    return visited_count, czas
+    return None, visited_count, czas
 
 if __name__ == "__main__":
-    n = len(start[0])
+    n = int(input("Podaj liczbę krążków: "))
+    start, goal = stan(n)
     optimum = 2**n - 1
 
-    print("PORÓWNANIE ALGORYTMÓW")
+    print("\nPORÓWNANIE ALGORYTMÓW")
     print("Liczba krążków:", n)
     print("Optymalna liczba ruchów:", optimum, "\n")
 
@@ -152,8 +155,9 @@ if __name__ == "__main__":
     print("Liczba odwiedzonych stanów:", visited_count)
     print("Czas działania:", f"{czas:.8f} s")
 
-    visited_count, czas = bfs_dwukierunkowe(start, goal)
+    visited_count, czas, liczba_ruchow = bfs_dwukierunkowe(start, goal)
     print("\nBFS dwukierunkowe")
+    print("Liczba ruchów:", liczba_ruchow)
     print("Liczba odwiedzonych stanów:", visited_count)
     print("Czas działania:", f"{czas:.8f} s")
 

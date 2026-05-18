@@ -54,6 +54,7 @@ def test_dfs():
 def test_bfs_dwukierunkowe():
     start = ((3, 2, 1), (), ())
     goal = ((), (), (3, 2, 1))
-    visited_count, duration = bfs_dwukierunkowe(start, goal)
+    visited_count, duration, liczba_ruchow = bfs_dwukierunkowe(start, goal)
     assert visited_count > 0
     assert duration >= 0
+    assert liczba_ruchow == 7
