@@ -49,7 +49,6 @@ BFS został wybrany, ponieważ w problemie Wież Hanoi każdy ruch ma taki sam k
 
 Dla `n` krążków optymalna liczba ruchów wynosi:
 
-
 ```text
 2^n - 1
 ```
