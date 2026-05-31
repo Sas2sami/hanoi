@@ -1,7 +1,7 @@
 from app.algorytmy import bfs, bfs_dwukierunkowe, dfs
 from app.hanoi import stan
 
-
+#Główna funkcja programu
 def main():
     n = int(input("Podaj liczbę krążków: "))
     start, goal = stan(n)

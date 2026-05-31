@@ -1,9 +1,9 @@
+#Implementacja algorytmów BFS, DFS i BFS dwukierunkowego dla problemu Hanoi
 import time
 from collections import deque
-
 from app.hanoi import get_moves
 
-
+#Algorytm BFS
 def bfs(start, goal):
     start_time = time.perf_counter()
     queue = deque([(start, [])])
@@ -29,7 +29,7 @@ def bfs(start, goal):
     czas = time.perf_counter() - start_time
     return None, visited_count, czas
 
-
+#Algorytm DFS
 def dfs(start, goal):
     start_time = time.perf_counter()
     stack = [(start, [])]
@@ -55,7 +55,7 @@ def dfs(start, goal):
     czas = time.perf_counter() - start_time
     return None, visited_count, czas
 
-
+#Algorytm BFS dwukierunkowy
 def bfs_dwukierunkowe(start, goal):
     start_time = time.perf_counter()
 

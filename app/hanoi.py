@@ -1,10 +1,11 @@
+#Stan początkowego i docelowego
 def stan(n):
     krazki = tuple(range(n, 0, -1))
     start = (krazki, (), ())
     goal = ((), (), krazki)
     return start, goal
 
-
+#algorytm rekurencyjny
 def hanoi(n, start, cel, pomocniczy, stan):
     if n == 1:
         wykonaj_ruch(stan, start, cel)
@@ -13,7 +14,7 @@ def hanoi(n, start, cel, pomocniczy, stan):
         wykonaj_ruch(stan, start, cel)
         hanoi(n - 1, pomocniczy, cel, start, stan)
 
-
+#sprawdzaniE legalności ruchów i generowania nowych stanów
 def legalne_ruchy(stan, start, cel):
     if len(stan[start]) == 0:
         return False
@@ -29,7 +30,7 @@ def wykonaj_ruch(stan, start, cel):
     else:
         print("Nielegalny ruch")
 
-
+#generowanie wszystkich możliwych ruchów z danego stanu
 def get_moves(state):
     moves = []
     n = len(state)
@@ -43,7 +44,8 @@ def get_moves(state):
         for j in range(n):
             if i == j:
                 continue
-
+#Ruch jest legalny, jeśli docelowa wieża jest pusta 
+#lub jej wierzchołkowy dysk jest większy niż przenoszony dysk
             if not state[j] or state[j][-1] > disk:
                 new_state = [list(rod) for rod in state]
                 new_state[j].append(new_state[i].pop())
